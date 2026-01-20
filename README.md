@@ -184,3 +184,27 @@ uv run python3 scripts/watcher_test_generator.py /tmp/watch_root --count 5 --int
 
 To compare watcher vs offline results, run the watcher on a directory, then
 run the batch processor on the same directory and compare trimmed file counts.
+
+### Final test (online vs offline)
+Goal: process 4 healpix downloads online (watcher) without deleting originals,
+then compare against offline batch trimming.
+
+1) Start watchers (no delete):
+```bash
+uv run python3 scripts/watch_coadd_directory.py \
+  /home/roccoditella/astroai/spark/iclr/data/globus/healpix=27258 \
+  data/DESI_chandra_crossmatch_1arcsec_healpix.with_pix64.csv \
+  --max-arcsec 1.0 --report-arcsec 3.0
+```
+
+Repeat for three more healpix directories.
+
+2) After downloads finish, run offline batch trimming on the same directories:
+```bash
+uv run python3 scripts/process_coadd_batch.py \
+  /home/roccoditella/astroai/spark/iclr/data/globus/healpix=27258 \
+  data/DESI_chandra_crossmatch_1arcsec_healpix.with_pix64.csv \
+  --max-arcsec 1.0 --report-arcsec 3.0
+```
+
+Compare the trimmed file counts from watcher vs offline to validate consistency.
