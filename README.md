@@ -208,3 +208,9 @@ uv run python3 scripts/process_coadd_batch.py \
 ```
 
 Compare the trimmed file counts from watcher vs offline to validate consistency.
+
+### Current issue to fix
+- The watcher failed when the CSV path was truncated/mistyped
+  (`data/DESI_chandra_crossmatch_1arcsec_healpix.with_pix64.`).
+  Add a guard for missing CSV paths and improve the watcher error message
+  before running large batches.

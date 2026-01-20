@@ -8,3 +8,7 @@
 6. Test watcher loop with dummy files (timestamp rename + move) before using real coadds.
 7. Compare watcher output vs offline batch processing for the same directory.
 8. Iterate pix64 one‑by‑one (download → match → save trimmed → delete raw).
+
+Open issue:
+- Watcher crashed when CSV path was truncated; add CSV existence validation and
+  clearer error message before running large batches.
