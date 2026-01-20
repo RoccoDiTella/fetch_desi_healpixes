@@ -1,0 +1,17 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Large data artifacts (keep raw data out of git)
+data/globus/
+data/desi_crossmatches/
+data/tilepix.fits
+data/DESI_chandra_crossmatch_1arcsec_healpix.csv
+data/DESI_chandra_crossmatch_1arcsec_healpix.with_pix64.csv
