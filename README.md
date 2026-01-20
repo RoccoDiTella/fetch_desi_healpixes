@@ -144,3 +144,43 @@ Example path for `pix64=27258`:
 ### Sanity checks to keep
 - Ensure coadd files expose B/R/Z spectra + IVAR + masks in FITS HDUs.
 - Confirm CSV healpix consistency (NSIDE=16, NESTED) before using pix64 for DR1.
+
+### Trim coadd files to matches
+Trim a coadd file to only the matched rows (RA/DEC within 1 arcsec; report 3 arcsec too):
+```bash
+uv run python3 scripts/trim_coadd_matches.py \
+  /path/to/coadd-main-dark-27258.fits \
+  data/DESI_chandra_crossmatch_1arcsec_healpix.with_pix64.csv \
+  --max-arcsec 1.0 --report-arcsec 3.0 --delete-original
+```
+
+Batch process a directory:
+```bash
+uv run python3 scripts/process_coadd_batch.py \
+  /home/roccoditella/astroai/spark/iclr/data/globus/healpix=27258 \
+  data/DESI_chandra_crossmatch_1arcsec_healpix.with_pix64.csv \
+  --max-arcsec 1.0 --report-arcsec 3.0 --delete-original
+```
+
+### Watcher loop (automated trimming)
+Watch a download directory and trim each coadd as it arrives:
+```bash
+uv run python3 scripts/watch_coadd_directory.py \
+  /home/roccoditella/astroai/spark/iclr/data/globus/healpix=27258 \
+  data/DESI_chandra_crossmatch_1arcsec_healpix.with_pix64.csv \
+  --max-arcsec 1.0 --report-arcsec 3.0 --delete-original
+```
+
+Watcher loop tester:
+```bash
+uv run python3 scripts/watch_coadd_directory.py \
+  /tmp/watch_root data/DESI_chandra_crossmatch_1arcsec_healpix.with_pix64.csv \
+  --test-mode --test-output-dir /tmp/watcher_test
+```
+
+```bash
+uv run python3 scripts/watcher_test_generator.py /tmp/watch_root --count 5 --interval 1
+```
+
+To compare watcher vs offline results, run the watcher on a directory, then
+run the batch processor on the same directory and compare trimmed file counts.
