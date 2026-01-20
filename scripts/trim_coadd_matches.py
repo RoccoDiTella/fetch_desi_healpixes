@@ -67,6 +67,9 @@ def trim_coadd_file(
     out_path: Path | None,
     delete_original: bool,
 ) -> None:
+    if coadd_path.name.endswith(".trimmed.fits") or ".trimmed." in coadd_path.name:
+        print(f"Skipping already-trimmed file: {coadd_path}")
+        return
     out_path = out_path or coadd_path.with_suffix(".trimmed.fits")
 
     csv_coords = load_csv_coords(csv_path, ra_col, dec_col)

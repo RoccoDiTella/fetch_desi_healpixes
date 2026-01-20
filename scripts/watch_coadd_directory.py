@@ -45,6 +45,8 @@ def main() -> None:
     while True:
         files = sorted(root.glob("coadd-*.fits"))
         for path in files:
+            if path.name.endswith(".trimmed.fits") or ".trimmed." in path.name:
+                continue
             trimmed_path = path.with_suffix(".trimmed.fits")
             if trimmed_path.exists():
                 continue
