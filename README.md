@@ -48,6 +48,9 @@ Notes:
 - Use an absolute destination path. If you pass `home/...` instead of `/home/...`,
   Globus will create a duplicated path like `/home/USER/home/USER/...`.
 - If you omit `<DEST_PATH>`, the script defaults to `/home/roccoditella/astroai/spark/iclr/data/globus`.
+- We no longer auto-download `zall-pix-iron.fits` (21GB) unless you explicitly pass it via `--extra-files`.
+  This keeps the SSD footprint much smaller because coadd `FIBERMAP` already provides
+  `TARGETID`, `TARGET_RA`, and `TARGET_DEC` for matching.
 
 ### Globus interface basics
 1. Create/activate a Globus Personal endpoint (GCP) on your machine.

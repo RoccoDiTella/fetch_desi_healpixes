@@ -361,7 +361,7 @@ if __name__ == "__main__":
         type=str,
         nargs="+",
         help="Space delimited list of extra files to transfer.",
-        default=["/dr1/spectro/redux/iron/zcatalog/v1/zall-pix-iron.fits"],
+        default=[],
     )
     parser.add_argument(
         "--tilepix-cache",
