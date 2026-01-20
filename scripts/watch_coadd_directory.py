@@ -2,8 +2,11 @@
 import argparse
 import time
 from pathlib import Path
+import sys
 
-from scripts.trim_coadd_matches import trim_coadd_file
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from scripts.trim_coadd_matches import trim_coadd_file  # noqa: E402
 
 
 def should_process(path: Path, min_age_seconds: int) -> bool:

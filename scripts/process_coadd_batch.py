@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 import argparse
 from pathlib import Path
+import sys
 
-from scripts.trim_coadd_matches import trim_coadd_file
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from scripts.trim_coadd_matches import trim_coadd_file  # noqa: E402
 
 
 def main() -> None:
